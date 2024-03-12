@@ -3,7 +3,7 @@ name: Continuous Deployment
 on:
   repository_dispatch:
     types: [deploy-event]
-
+    
 jobs:
   deploy:
     runs-on: ubuntu-latest
