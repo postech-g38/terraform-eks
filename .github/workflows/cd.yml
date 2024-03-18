@@ -3,7 +3,7 @@ name: Continuous Deployment
 on:
   repository_dispatch:
     types: [deploy-event]
-    
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -23,8 +23,29 @@ jobs:
         with:
           terraform_version: '0.14.9'
 
+      - name: Create secrets.yaml
+        run: |
+          cat <<EOF > secrets.yaml
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: my-secret
+          type: Opaque
+          stringData:
+            DATABASE_USERNAME: '${{ secrets.DATABASE_USERNAME }}'
+            DATABASE_HOST: '${{ secrets.DATABASE_HOST }}'
+            DATABASE_PORT: '${{ secrets.DATABASE_PORT }}'
+            DATABASE_NAME: '${{ secrets.DATABASE_NAME }}'
+            DATABASE_PASSWORD: '${{ secrets.DATABASE_PASSWORD }}'
+          EOF
+
       - name: Initialize Terraform
         run: terraform init
 
       - name: Apply Terraform
         run: terraform apply -auto-approve
+
+      - name: Schedule resource destruction
+        run: |
+          sleep 3600 # Espera 1 hora (3600 segundos)
+          terraform destroy -auto-approve # Destrói os recursos provisionados pelo Terraform
