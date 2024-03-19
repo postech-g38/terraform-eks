@@ -62,3 +62,4 @@ Para evitar incorrer em cobranças, certifique-se de destruir o cluster EKS apó
 ```bash
 terraform destroy
 ```
+teste para video
