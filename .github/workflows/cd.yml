@@ -24,7 +24,16 @@ jobs:
           terraform_version: '0.14.9'
 
       - name: Initialize Terraform
-        run: terraform init
+        run: |
+          export TF_LOG=DEBUG
+          terraform init
+
+      - name: Plan Terraform
+        run: |
+          export TF_LOG=DEBUG
+          terraform plan
 
       - name: Apply Terraform
-        run: terraform apply -auto-approve
+        run: |
+          export TF_LOG=DEBUG
+          terraform apply -auto-approve
