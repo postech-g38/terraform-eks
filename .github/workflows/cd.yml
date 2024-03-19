@@ -33,15 +33,3 @@ jobs:
         run: |
           export TF_LOG=TRACE
           terraform apply -auto-approve
-
-      - name: Disparar Action no k8s
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          script: |
-            github.rest.actions.createWorkflowDispatch({
-            owner: 'ggrando',
-            repo: 'ByteBiteBurgers',
-            workflow_id: 'cd.yml',
-            ref: 'main',
-            })
