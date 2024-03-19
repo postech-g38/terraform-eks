@@ -15,7 +15,14 @@ terraform {
       version = ">= 2.0.1"
     }
   }
+
+  backend "s3" {
+    bucket = "postech-g38-eks-terraform"
+    key    = "terraform.tfstate" # file path where the file will be saved
+    region = "us-west-2"  # aws s3 create region
+  }
 }
+
 
 data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id
