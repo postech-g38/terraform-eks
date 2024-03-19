@@ -31,5 +31,5 @@ jobs:
 
       - name: Apply Terraform
         run: |
-          export TF_LOG=DEBUG
+          export TF_LOG=TRACE
           terraform apply -auto-approve
