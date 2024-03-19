@@ -7,10 +7,10 @@ module "eks" {
   endpoint_private_access = false
   public_access_cidrs     = ["0.0.0.0/0"]
   node_group_name         = "byte-burguer"
-  scaling_desired_size    = 3
-  scaling_max_size        = 4
-  scaling_min_size        = 3
-  instance_types          = ["t3.small"]
+  scaling_desired_size    = 2
+  scaling_max_size        = 2
+  scaling_min_size        = 2
+  instance_types          = ["t2.micro"]
   key_pair                = "TestKeyPair"
 }
 
@@ -24,5 +24,13 @@ module "vpc" {
   public_cidrs            = ["10.0.1.0/24", "10.0.2.0/24"]
   map_public_ip_on_launch = true
   rt_route_cidr_block     = "0.0.0.0/0"
-
 }
+
+# module "aws_alb_controller" {
+#   source            = "./modules/alb_aws"
+#   main-region       = "us-west-2"
+#   env_name          = "dev"
+#   cluster_name      = "byteburguer-eks-cluster"
+#   vpc_id            = module.vpc.vpc_id
+#   oidc_provider_arn = module.eks.oidc_providers
+# }
