@@ -1,7 +1,9 @@
 name: Continuous Deployment
 
 on:
-  workflow_dispatch: # Permite a execução manual da Action
+  push:
+    branches: [main]
+  workflow_dispatch:
   repository_dispatch:
     types: [deploy-event]
 
@@ -25,11 +27,7 @@ jobs:
           terraform_version: '0.14.9'
 
       - name: Initialize Terraform
-        run: |
-          export TF_LOG=DEBUG
-          terraform init
+        run: terraform init
 
       - name: Apply Terraform
-        run: |
-          export TF_LOG=TRACE
-          terraform apply -auto-approve
+        run: terraform apply -auto-approve
