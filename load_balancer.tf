@@ -14,12 +14,12 @@ resource "kubernetes_service" "LoadBalancer" {
   }
 }
 
-data "kubernetes_service" "nomeDNS" {
-    metadata {
-      name = "lb-byteburguer"
-    }
-}
+# data "kubernetes_service" "nomeDNS" {
+#     metadata {
+#       name = "lb-byteburguer"
+#     }
+# }
 
-output "DNS" {
-  value = data.kubernetes_service.nomeDNS.status
-}
+# output "DNS" {
+#   value = data.kubernetes_service.nomeDNS.status
+# }
