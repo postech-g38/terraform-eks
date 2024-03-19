@@ -1,72 +1,64 @@
-# Terraform AWS EKS Cluster Setup
+# Configuração do Cluster AWS EKS com Terraform
 
-This Terraform script allows you to easily provision an Amazon EKS (Elastic Kubernetes Service) cluster on AWS. Amazon EKS is a managed Kubernetes service that makes it easy to deploy, manage, and scale containerized applications using Kubernetes.
+Este script Terraform permite que você provisione facilmente um cluster Amazon EKS (Elastic Kubernetes Service) na AWS. Amazon EKS é um serviço gerenciado de Kubernetes que facilita a implantação, gerenciamento e dimensionamento de aplicativos em contêiner usando Kubernetes.
 
-## Prerequisites
+## Pré-requisitos
 
-Before you begin, ensure you have the following:
+Antes de começar, certifique-se de ter o seguinte:
 
-- AWS account with appropriate permissions to create EKS clusters.
-- Terraform installed on your local machine. You can download it from [here](https://www.terraform.io/downloads.html).
-- AWS CLI installed and configured with appropriate credentials. You can download it from [here](https://aws.amazon.com/cli/).
+- Conta AWS com permissões apropriadas para criar clusters EKS.
+- Terraform instalado em sua máquina local. Você pode baixá-lo [aqui](https://www.terraform.io/downloads.html).
+- AWS CLI instalado e configurado com credenciais apropriadas. Você pode baixá-lo [aqui](https://aws.amazon.com/cli/).
 
-## Setup Instructions
+## Instruções de Configuração
 
-1. Clone this repository to your local machine:
-
-    ```bash
-    git clone https://github.com/your-username/terraform-eks-cluster.git
-    ```
-
-2. Navigate to the cloned directory:
+1. Clone este repositório em sua máquina local:
 
     ```bash
-    cd terraform-eks-cluster
+    git clone git@github.com:postech-g38/terraform-eks.git
     ```
 
-3. Create a `terraform.tfvars` file and provide necessary variables. You can use the `terraform.tfvars.example` as a template.
+2. Navegue até o diretório clonado:
 
     ```bash
-    cp terraform.tfvars.example terraform.tfvars
+    cd terraform-eks
     ```
 
-4. Modify the `terraform.tfvars` file with your AWS credentials and desired configurations for the EKS cluster.
 
-5. Initialize Terraform:
+3. Inicialize o Terraform:
 
     ```bash
     terraform init
     ```
 
-6. Review the execution plan:
+4. Revise o plano de execução:
 
     ```bash
     terraform plan
     ```
 
-7. Apply the Terraform configuration to create the EKS cluster:
+5. Aplique a configuração do Terraform para criar o cluster EKS:
 
     ```bash
     terraform apply
     ```
 
-8. Once the cluster is provisioned, configure `kubectl` to communicate with the newly created EKS cluster:
+6. Uma vez que o cluster for provisionado, configure o `kubectl` para se comunicar com o cluster EKS recém-criado:
 
     ```bash
-    aws eks --region <region> update-kubeconfig --name <cluster_name>
+    aws eks --region us-west-2 update-kubeconfig --name byteburguer-eks-cluster
     ```
 
-    Replace `<region>` and `<cluster_name>` with your AWS region and EKS cluster name.
-
-9. Verify that `kubectl` is configured correctly and you can access the EKS cluster:
+7. Verifique se o `kubectl` está configurado corretamente e se você pode acessar o cluster EKS:
 
     ```bash
     kubectl get nodes
     ```
 
-## Cleanup
+## Limpeza
 
-To avoid incurring charges, make sure to destroy the EKS cluster after you are done testing:
+Para evitar incorrer em cobranças, certifique-se de destruir o cluster EKS após concluir os testes:
 
 ```bash
 terraform destroy
+```
